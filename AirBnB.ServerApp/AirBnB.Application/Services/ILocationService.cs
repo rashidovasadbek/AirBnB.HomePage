@@ -15,7 +15,7 @@ public interface ILocationService
     ValueTask<Location> GetByIdAsync(Guid locationId,
         bool asNoTracking = false,
         CancellationToken cancellationToken = default);
-
+      
     ValueTask<Location> GetByIdsAsync(IEnumerable<Guid> ids, bool asNoTracking = false,
         CancellationToken cancellationToken = default);
 }
