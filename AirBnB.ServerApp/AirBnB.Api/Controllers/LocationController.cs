@@ -1,4 +1,5 @@
-﻿using AirBnB.Application.Services;
+﻿using AirBnB.Application.Locations.Models;
+using AirBnB.Application.Services;
 using AirBnB.Domain.Common.Query;
 using AirBnB.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +18,11 @@ public class LocationController : ControllerBase
     }
     [HttpGet]
     public async ValueTask<IActionResult> GetLocations(
-        [FromQuery] FilterPagination paginationOptions,
+        [FromQuery] LocationFilter locationFilter,
         [FromServices] ILocationService locationService,
         CancellationToken cancellationToken = default)
     {
-        var specificationA = new QuerySpecification<Location>(paginationOptions.PageSize, paginationOptions.PageToken);
-        var result = await locationService.GetByFilterAsync(specificationA, cancellationToken: cancellationToken);
-        return result.Any() ? Ok(result) : BadRequest();
+        var result = await locationService.GetByFilterAsync(locationFilter.ToQuerySpecification(), cancellationToken: cancellationToken);
+        return result.Any() ? Ok(result) : NoContent();
     }
-    
-    
 }
