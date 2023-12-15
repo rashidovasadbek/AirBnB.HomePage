@@ -5,6 +5,7 @@ using AirBnB.Domain.Entities;
 using AirBnB.Persistence.Caching.Brokers;
 using AirBnB.Persistence.DataContext;
 using AirBnB.Persistence.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirBnB.Persistence.Repositories;
 
@@ -14,7 +15,6 @@ public class LocationRepository(AirBnBdbContext airBnBdbContext, ICacheBroker ca
     new CacheEntryOptions()
     ), ILocationRepository
 {
-   
 
     public IQueryable<Location> Get(Expression<Func<Location, bool>>? predicate = default, bool asNoTracking = false)
         => base.Get(predicate, asNoTracking);

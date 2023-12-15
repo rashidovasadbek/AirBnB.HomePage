@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AirBnB.Persistence.Migrations
 {
     [DbContext(typeof(AirBnBdbContext))]
-    [Migration("20231214114721_RelationLocationAndCategory")]
-    partial class RelationLocationAndCategory
+    [Migration("20231215114129_AddRelation")]
+    partial class AddRelation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace AirBnB.Persistence.Migrations
                     b.Property<int>("BuiltYear")
                         .HasColumnType("integer");
 
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
+
                     b.Property<float>("FeedBack")
                         .HasColumnType("real");
 
@@ -51,6 +54,8 @@ namespace AirBnB.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Locations");
                 });
@@ -76,34 +81,20 @@ namespace AirBnB.Persistence.Migrations
                     b.ToTable("LocationCategories");
                 });
 
-            modelBuilder.Entity("AirBnB.Domain.Entities.LocationRelation", b =>
+            modelBuilder.Entity("AirBnB.Domain.Entities.Location", b =>
                 {
-                    b.Property<Guid>("LocationCategoryId")
-                        .HasColumnType("uuid");
+                    b.HasOne("AirBnB.Domain.Entities.LocationCategory", "Category")
+                        .WithMany("Locations")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("LocationId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("LocationCategoryId", "LocationId");
-
-                    b.HasIndex("LocationId");
-
-                    b.ToTable("LocationRelations");
+                    b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("AirBnB.Domain.Entities.LocationRelation", b =>
+            modelBuilder.Entity("AirBnB.Domain.Entities.LocationCategory", b =>
                 {
-                    b.HasOne("AirBnB.Domain.Entities.LocationCategory", null)
-                        .WithMany()
-                        .HasForeignKey("LocationCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AirBnB.Domain.Entities.Location", null)
-                        .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Locations");
                 });
 #pragma warning restore 612, 618
         }
