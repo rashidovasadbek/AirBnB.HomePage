@@ -1,14 +1,15 @@
 ﻿using AirBnB.Domain.Common.Entities;
 using AirBnB.Domain.Common.Query;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirBnB.Domain.Extensions;
 
 public static class LinqExtensions
 {
     public static IQueryable<TSource> ApplySpecification<TSource>(this IQueryable<TSource> source,
-        QuerySpecification<TSource> querySpecification) where TSource : IEntity
+        QuerySpecification<TSource> querySpecification) where TSource : class, IEntity
     {
-        source = source.ApplyPredicates(querySpecification).ApplyOrdering(querySpecification)
+        source = source.ApplyPredicates(querySpecification).ApplyIncludes(querySpecification).ApplyOrdering(querySpecification)
             .ApplyPagination(querySpecification);
 
         return source;
@@ -30,6 +31,14 @@ public static class LinqExtensions
 
         return source;
     }
+    
+       public static IQueryable<TSource> ApplyIncludes<TSource>(this IQueryable<TSource> source,
+            QuerySpecification<TSource> querySpecification) where TSource : class, IEntity
+        {
+            querySpecification.IncludeOptions.ForEach(includeOption => source = source.Include(includeOption));
+    
+            return source;
+        }
 
     public static IEnumerable<TSource> ApplyPredicates<TSource>(this IEnumerable<TSource> sources,
         QuerySpecification<TSource> querySpecification) where TSource : IEntity

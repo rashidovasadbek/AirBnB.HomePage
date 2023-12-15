@@ -7,9 +7,7 @@ public class AirBnBdbContext : DbContext
 {
     public DbSet<Location> Locations => Set<Location>();
     public DbSet<LocationCategory> LocationCategories => Set<LocationCategory>();
-
-    public DbSet<LocationRelation> LocationRelations => Set<LocationRelation>();
-
+    
     public AirBnBdbContext(DbContextOptions<AirBnBdbContext> options) : base(options)
     {
         

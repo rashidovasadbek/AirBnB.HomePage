@@ -13,9 +13,10 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
         builder.Property(template => template.BuiltYear).IsRequired();
         builder.Property(template => template.FeedBack).IsRequired();
         builder.Property(template => template.PricePerNight).IsRequired();
-
-        builder.HasMany(location => location.LocationCategories)
-            .WithMany(locationCategory => locationCategory.Locations)
-            .UsingEntity<LocationRelation>();
+                        
+        builder
+            .HasOne(location => location.Category)
+            .WithMany(category => category.Locations)
+            .HasForeignKey(location => location.CategoryId);
     }
 }

@@ -10,5 +10,9 @@ public class LocationCategoryConfiguration : IEntityTypeConfiguration<LocationCa
     {
         builder.Property(template => template.Name).IsRequired().HasMaxLength(256);
         builder.Property(template => template.ImagePath).IsRequired().HasMaxLength(256);
+
+        builder
+            .HasMany(category => category.Locations)
+            .WithOne(location => location.Category);
     }
 }
