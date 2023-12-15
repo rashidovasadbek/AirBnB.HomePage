@@ -12,6 +12,7 @@ public interface ILocationService
         QuerySpecification<Location> querySpecification,
         bool asNoTracking = false,
         CancellationToken cancellationToken = default);
+    
     ValueTask<Location> GetByIdAsync(Guid locationId,
         bool asNoTracking = false,
         CancellationToken cancellationToken = default);
