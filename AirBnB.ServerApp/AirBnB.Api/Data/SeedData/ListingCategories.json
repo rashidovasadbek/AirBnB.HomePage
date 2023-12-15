@@ -1,0 +1,27 @@
+[
+  {
+    "id": "59060863-d9df-44cb-a1ea-93594f9cd649",
+    "name": "Castle",
+    "imagePath": "Assets/LocationCotegories/1b6a8b70-a3b6-48b5-88e1-2243d9172c06.jpg"
+  },
+  {
+    "id": "50a8a48b-7faf-4ab4-b95e-1c2412f1c9b3",
+    "name": "Amazing views",
+    "imagePath": "Assets/LocationCotegories/3b1eb541-46d9-4bef-abc4-c37d77e3c21b.jpg"
+  },
+  {
+    "id": "d387a8fc-a8f7-4980-a5d3-fda14236c14c",
+    "name": "Amazing pools",
+    "imagePath": "Assets/LocationCotegories/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+  },
+  {
+    "id": "bd42590e-3181-4f1a-9f24-d6f4b552cad8",
+    "name": "Riads",
+    "imagePath": "Assets/LocationCotegories/7ff6e4a1-51b4-4671-bc9a-6f523f196c61.jpg"
+  },
+  {
+    "id": "527980d8-cbe5-48cd-b70a-45d75c3eefe8",
+    "name": "Arctic",
+    "imagePath": "Assets/LocationCotegories/8e507f16-4943-4be9-b707-59bd38d56309.jpg"
+  }
+]

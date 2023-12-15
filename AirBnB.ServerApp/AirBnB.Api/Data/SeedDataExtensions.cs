@@ -1,6 +1,7 @@
 ﻿using AirBnB.Domain.Entities;
 using AirBnB.Persistence.DataContext;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace AirBnB.Api.Data;
 
@@ -9,13 +10,15 @@ public static class SeedDataExtensions
     public static async ValueTask InitializeSeedAsync(this IServiceProvider serviceProvider)
     {
         var locationsDbContext = serviceProvider.GetRequiredService<AirBnBdbContext>();
+        var environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
 
-        if (!await locationsDbContext.Locations.AnyAsync())
-            await locationsDbContext.SeedLocationsAsync();
+           if (!await locationsDbContext.LocationCategories.AnyAsync())
+               await locationsDbContext.SeedLocationCategoryAsync(environment);
         
-        if (!await locationsDbContext.LocationCategories.AnyAsync())
-            await locationsDbContext.SeedLocationCategoryAsync();
+          if (!await locationsDbContext.Locations.AnyAsync())
+            await locationsDbContext.SeedLocationsAsync();
     }
+    
     private static async ValueTask SeedLocationsAsync(this AirBnBdbContext airBnBdbContext)
     {
         
@@ -70,6 +73,10 @@ public static class SeedDataExtensions
             "https://a0.muscache.com/im/pictures/30d6cf52-d303-4026-8d8c-5cc8ac03444e.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/f042c16f-dde9-436e-96a0-9c21ab7da2d0.jpg?im_w=720"
         };
+        var categoryIdList = new List<string>
+        {   
+            "7593fb46-91a0-4d93-a04f-07580a25b8d8",
+        };
         var count = 0;
         var random = new Random();
 
@@ -78,10 +85,10 @@ public static class SeedDataExtensions
             await airBnBdbContext.Locations.AddAsync(new Location
         {
             ImageUrl = imageUrl,
-            Name =
-                "Bujra. India Bujra. India Bujra. India Bujra. India Bujra. India Bujra. IndiaBujra. IndiaBujra. India",
+            Name = "Bujra. India Bujra. India Bujra. India Bujra. India Bujra. India Bujra. IndiaBujra. IndiaBujra. India",
             BuiltYear = random.Next(2010, 2023),
-            PricePerNight = random.Next(300, 5000)
+            PricePerNight = random.Next(300, 5000),
+            CategoryId = Guid.Parse("7593fb46-91a0-4d93-a04f-07580a25b8d8")
         }); 
         
         await airBnBdbContext.SaveChangesAsync();
@@ -89,10 +96,12 @@ public static class SeedDataExtensions
         
     }
 
-    private static async ValueTask SeedLocationCategoryAsync(this AirBnBdbContext airBnBdbContext)
+    private static async ValueTask SeedLocationCategoryAsync(this AirBnBdbContext airBnBdbContext, IWebHostEnvironment environment)
     {
-        var imagePathDictionary = new Dictionary<string, string>();
+        var locationCategories = JsonConvert.DeserializeObject<List<LocationCategory>>(await File.ReadAllTextAsync(
+            Path.Combine(environment.ContentRootPath, "Data", "SeedData", "ListingCategories.json")))!;
         
+        /*
         imagePathDictionary.Add("Castle","Assets/LocationCotegories/1b6a8b70-a3b6-48b5-88e1-2243d9172c06.jpg");
         imagePathDictionary.Add("Amazing views","Assets/LocationCotegories/3b1eb541-46d9-4bef-abc4-c37d77e3c21b.jpg");
         imagePathDictionary.Add("Amazing pools","Assets/LocationCotegories/3fb523a0-b622-4368-8142-b5e03df7549b.jpg");
@@ -116,9 +125,12 @@ public static class SeedDataExtensions
         imagePathDictionary.Add("","Assets/LocationCotegories/827c5623-d182-474a-823c-db3894490896.jpg");
         imagePathDictionary.Add("","Assets/LocationCotegories/9a2ca4df-ee90-4063-b15d-0de7e4ce210a.jpg");
         imagePathDictionary.Add("","Assets/LocationCotegories/d721318f-4752-417d-b4fa-77da3cbc3269.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/c9157d0a-98fe-4516-af81-44022118fbc7.jpg"); */       
+        imagePathDictionary.Add("","Assets/LocationCotegories/c9157d0a-98fe-4516-af81-44022118fbc7.jpg"); */
 
-        foreach (var (key, value) in imagePathDictionary)
+        await airBnBdbContext.AddRangeAsync(locationCategories);
+        await airBnBdbContext.SaveChangesAsync();
+        
+        /*foreach (var (key, value) in imagePathDictionary)
         {
             await airBnBdbContext.LocationCategories.AddAsync(new LocationCategory
             {
@@ -127,6 +139,6 @@ public static class SeedDataExtensions
             });
 
             await airBnBdbContext.SaveChangesAsync();
-        }
+        }*/
     }
 }
