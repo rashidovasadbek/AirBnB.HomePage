@@ -9,9 +9,11 @@ namespace AirBnB.Domain.Common.Query;
 public class QuerySpecification<TEntity>(uint pageSize, uint pageToken) : CacheModel where TEntity : IEntity
 {
 
-    public List<Expression<Func<TEntity, bool>>> FilteringOptions { get; } = new();
+    public List<Expression<Func<TEntity, bool>>> FilteringOptions { get; } = [];
 
-    public List<(Expression<Func<TEntity, object>> KeySelecter, bool isAscending)> OrderingOptions { get; } = new();
+    public List<Expression<Func<TEntity, object>>> IncludeOptions { get; } = [];
+
+    public List<(Expression<Func<TEntity, object>> KeySelecter, bool isAscending)> OrderingOptions { get; } = [];
 
     public FilterPagination PaginationOptions { get; set; } = new(pageSize, pageToken);
 
