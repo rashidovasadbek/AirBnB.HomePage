@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .select-transition {
+        @apply transition duration-200;
+    }
+
+    .select-common {
+        @apply cursor-pointer;
+    }
+
+    .select-logo {
+        @apply bg-logoSecondary hover:bg-logoSelected focus:bg-logoSelected active:bg-logoSelected group-hover:bg-logoSelected group-focus:bg-logoSelected group-active:bg-logoSelected;
+    }
+
+    .select-logo-img {
+        @apply opacity-60 hover:opacity-100 focus:opacity-100 active:opacity-100 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100;
+    }
+
+    .select-item {
+        @apply bg-transparent hover:bg-logoAccent focus:bg-logoSelected group-active:bg-logoSelected group-hover:bg-logoAccent group-focus:bg-logoSelected active:bg-logoSelected;
+    }
+
+    .select-text {
+        @apply text-textSecondary hover:text-textPrimary focus:text-textPrimary active:text-textPrimary group-hover:text-textPrimary group-focus:text-textPrimary group-active:text-textPrimary;
+    }
+
+    .content-padding {
+        @apply px-6 md:px-10 xl:px-20
+    }
+}
+
+@layer utilities {
+    @variants responsive {
+        /* Hide scrollbar for Chrome, Safari, and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge, and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+    }
+}
