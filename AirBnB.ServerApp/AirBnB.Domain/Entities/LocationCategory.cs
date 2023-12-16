@@ -2,12 +2,12 @@
 
 namespace AirBnB.Domain.Entities;
 
-public class LocationCategory : IEntity
+public  class LocationCategory : IEntity
 {
     public Guid Id { get; set; }
     
-    public string Name { get; set; } = default!;
+    public string Name { get; init; } = default!;
 
-    public string ImagePath { get; set; } = default!;
+    public string ImagePath { get; init; } = default!;
     public virtual List<Location> Locations { get; } = new();
 }

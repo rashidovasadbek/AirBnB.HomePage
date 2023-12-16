@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using AirBnB.Domain.Common.Entities;
+﻿using AirBnB.Domain.Common.Entities;
 
 namespace AirBnB.Domain.Entities;
 
@@ -7,18 +6,17 @@ public class Location : IEntity
 {
     public Guid Id { get; set; }
     
-    public string ImageUrl { get; set; } = default!;
+    public string ImageUrl { get; init; } = default!;
     
-    public string Name { get; set; } = default!;
+    public string Name { get; init; } = default!;
     
-    public int BuiltYear { get; set; }
+    public int BuiltYear { get; init; }
     
-    public int PricePerNight { get; set; }
+    public int PricePerNight { get; init; }
     
-    public float FeedBack { get; set; }
-
+    public float FeedBack { get; init; }
     
-    public Guid CategoryId { get; set; }
+    public Guid CategoryId { get; init; }
     
-    public virtual LocationCategory Category { get; set; }
+    public virtual LocationCategory? Category { get; init; }
 }
