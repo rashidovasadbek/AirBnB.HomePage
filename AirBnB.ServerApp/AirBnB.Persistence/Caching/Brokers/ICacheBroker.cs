@@ -1,4 +1,5 @@
 ﻿using AirBnB.Domain.Common.Caching;
+using Newtonsoft.Json;
 
 namespace AirBnB.Persistence.Caching.Brokers;
 
