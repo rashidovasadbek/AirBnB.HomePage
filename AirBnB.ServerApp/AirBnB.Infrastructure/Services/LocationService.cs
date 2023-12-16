@@ -27,8 +27,7 @@ public class LocationService(ILocationRepository locationRepository) : ILocation
         QuerySpecification<Location> querySpecification,
         bool asNoTracking = false,
         CancellationToken cancellationToken = default)
-        => await GetAsync(querySpecification, asNoTracking, cancellationToken);
-    
+        => await locationRepository.GetAsync(querySpecification, asNoTracking, cancellationToken);
 
     public ValueTask<Location?> GetByIdAsync(Guid locationId, bool asNoTracking = false, CancellationToken cancellationToken = default)
     {
