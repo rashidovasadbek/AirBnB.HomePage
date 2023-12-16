@@ -15,7 +15,7 @@ public static class SeedDataExtensions
            if (!await locationsDbContext.LocationCategories.AnyAsync())
                await locationsDbContext.SeedLocationCategoryAsync(environment);
         
-          if (!await locationsDbContext.Locations.AnyAsync())
+           if (!await locationsDbContext.Locations.AnyAsync())
             await locationsDbContext.SeedLocationsAsync();
     }
     
@@ -24,18 +24,18 @@ public static class SeedDataExtensions
         
         var imageList = new List<string>
         {
-            "https://a0.muscache.com/im/pictures/53ed423f-f4c4-4be5-9bf9-e52861167c0f.jpg?im_w=720",
+            /*"https://a0.muscache.com/im/pictures/53ed423f-f4c4-4be5-9bf9-e52861167c0f.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-832355501498041527/original/551de2c9-6981-4222-b21d-75dd8792bd2d.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-44265625/original/f3a34292-ea0d-4614-9089-3b2ed382e7f5.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/16741847/6cdb4377_original.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-883697523223642736/original/57d9cca1-3ddd-43a6-ad0b-1178f1518dcb.jpeg?im_w=720",
-            "https://a0.muscache.com/im/pictures/miso/Hosting-798310927368521545/original/da546e7a-df43-4840-9144-5e1a8b85bf26.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-798310927368521545/original/da546e7a-df43-4840-9144-5e1a8b85bf26.jpeg?im_w=720",*/
             "https://a0.muscache.com/im/pictures/miso/Hosting-853189955208971108/original/bdefcb9d-5e3f-495d-bc04-013125cd99c6.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-1025798788809925759/original/cc9cc97e-ffef-4606-8b5b-1175f0e660ae.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/a1314224-52d7-4e3c-9c85-8fbdb5644ec5.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-876463172459170480/original/60963c66-9a75-4424-bcd7-d5a02080a45d.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/0c3e645b-2c70-426f-bf0c-c45968e8b69f.jpg?im_w=720",
-            "https://a0.muscache.com/im/pictures/74fc010b-e809-42ff-a1ee-d58bc4cfd202.jpg?im_w=720",
+            /*"https://a0.muscache.com/im/pictures/74fc010b-e809-42ff-a1ee-d58bc4cfd202.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-980193538711664916/original/7751128a-f0b7-4f67-95e7-ef3ee3b79ccf.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-603281858277532903/original/92af7b7e-0b55-41f4-b4a7-ffab7ee6125d.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-45789576/original/8909a57c-c10f-43ae-a40e-6651825650fc.jpeg?im_w=720",
@@ -71,12 +71,9 @@ public static class SeedDataExtensions
             "https://a0.muscache.com/im/pictures/f382147c-f68c-4dda-b810-87a4de82f5a7.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/b271226e-9453-4d73-aac0-1622550b08e4.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/30d6cf52-d303-4026-8d8c-5cc8ac03444e.jpg?im_w=720",
-            "https://a0.muscache.com/im/pictures/f042c16f-dde9-436e-96a0-9c21ab7da2d0.jpg?im_w=720"
+            "https://a0.muscache.com/im/pictures/f042c16f-dde9-436e-96a0-9c21ab7da2d0.jpg?im_w=720"*/
         };
-        var categoryIdList = new List<string>
-        {   
-            "7593fb46-91a0-4d93-a04f-07580a25b8d8",
-        };
+
         var count = 0;
         var random = new Random();
 
@@ -88,10 +85,11 @@ public static class SeedDataExtensions
             Name = "Bujra. India Bujra. India Bujra. India Bujra. India Bujra. India Bujra. IndiaBujra. IndiaBujra. India",
             BuiltYear = random.Next(2010, 2023),
             PricePerNight = random.Next(300, 5000),
-            CategoryId = Guid.Parse("7593fb46-91a0-4d93-a04f-07580a25b8d8")
+            CategoryId = Guid.Parse("59060863-d9df-44cb-a1ea-93594f9cd649")
         }); 
-        
-        await airBnBdbContext.SaveChangesAsync();
+            await airBnBdbContext.AddRangeAsync();
+            
+            await airBnBdbContext.SaveChangesAsync();
         }
         
     }
