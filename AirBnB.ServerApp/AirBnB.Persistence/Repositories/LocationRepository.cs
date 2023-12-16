@@ -19,13 +19,16 @@ public class LocationRepository(AirBnBdbContext airBnBdbContext, ICacheBroker ca
     public IQueryable<Location> Get(Expression<Func<Location, bool>>? predicate = default, bool asNoTracking = false)
         => base.Get(predicate, asNoTracking);
 
-    public ValueTask<IList<Location>> GetAsync(
+    public async ValueTask<IList<Location>> GetAsync(
         QuerySpecification<Location> querySpecification,
         bool asNoTracking = false,
         CancellationToken cancellationToken = default
     )
     {
-        return base.GetAsync(querySpecification, asNoTracking, cancellationToken);
+        var test = await DbContext.Locations.Include(x => x.Category).Where(x => x.Category!.Name.Equals("Castle"))
+            .ToListAsync(cancellationToken: cancellationToken);
+        
+        return await base.GetAsync(querySpecification, asNoTracking, cancellationToken);
     }
     
     public ValueTask<IList<Location>> GetByIdsAsync(IEnumerable<Guid> ids, 
