@@ -1,28 +1,33 @@
-﻿using AirBnB.Application.Locations.Models;
+﻿using AirBnB.Api.Models.Dtos;
+using AirBnB.Application.Locations.Models;
 using AirBnB.Application.Services;
-using AirBnB.Domain.Common.Query;
-using AirBnB.Domain.Entities;
+using AirBnB.Infrastructure.Extensions;
+using AirBnB.Infrastructure.Settings;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace AirBnB.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class LocationController : ControllerBase
+public class LocationController(ILocationService locationService) : ControllerBase
 {
-    private readonly ILocationService _locationService;
-
-    public LocationController(ILocationService locationService)
-    {
-        _locationService = locationService;
-    }
     [HttpGet]
     public async ValueTask<IActionResult> GetLocations(
         [FromQuery] LocationFilter locationFilter,
-        [FromServices] ILocationService locationService,
+        [FromServices]  IOptions<ApiSettings> apiSettings,
         CancellationToken cancellationToken = default)
     {
-        var result = await locationService.GetByFilterAsync(locationFilter.ToQuerySpecification(), cancellationToken: cancellationToken);
-        return result.Any() ? Ok(result) : NoContent();
+        var result = await locationService.GetAsync(locationFilter.ToQuerySpecification(), cancellationToken: cancellationToken);
+        var locations = result.Select(location => new LocationDto
+        {
+            Id = location.Id,
+            ImageUrl = location.ImageUrl.ToUrl(apiSettings.Value.ApiUrl),
+            Name = location.Name,
+            BuiltYear = location.BuiltYear,
+            PricePerNight = location.PricePerNight,
+            FeedBack = location.FeedBack
+        });
+        return locations.Any() ? Ok(locations) : NoContent();
     }
 }
