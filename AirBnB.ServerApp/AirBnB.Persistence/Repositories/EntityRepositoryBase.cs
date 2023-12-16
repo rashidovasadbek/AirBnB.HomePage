@@ -45,16 +45,16 @@ public abstract class EntityRepositoryBase<TEntity, TContext>(
             if (asNoTracking) initialQuery = initialQuery.AsNoTracking();
 
             initialQuery = initialQuery.ApplySpecification(querySpecification);
+            //initialQuery = initialQuery.ApplyPredicates(querySpecification);
 
             foundEntities = await initialQuery.ToListAsync(cancellationToken);
 
             if (cacheEntryOptions is not null)
                 await cacheBroker.SetAsync(cacheKey, foundEntities, cacheEntryOptions);
         }
-        else
-        {
+        else if( cachedEntities is not null)
             foundEntities = cachedEntities;
-        }
+        
 
         return foundEntities;
     }
