@@ -9,7 +9,9 @@ public static class LinqExtensions
     public static IQueryable<TSource> ApplySpecification<TSource>(this IQueryable<TSource> source,
         QuerySpecification<TSource> querySpecification) where TSource : class, IEntity
     {
-        source = source.ApplyPredicates(querySpecification).ApplyIncludes(querySpecification).ApplyOrdering(querySpecification)
+        source = source
+            .ApplyPredicates(querySpecification)
+            .ApplyIncludes(querySpecification)
             .ApplyPagination(querySpecification);
 
         return source;
@@ -27,7 +29,7 @@ public static class LinqExtensions
     public static IQueryable<TSource> ApplyPredicates<TSource>(this IQueryable<TSource> source,
         QuerySpecification<TSource> querySpecification) where TSource : IEntity
     {
-        querySpecification.FilteringOptions.ForEach(predicate =>source = source.Where(predicate));
+        querySpecification.FilteringOptions.ForEach(predicate => source = source.Where(predicate));
 
         return source;
     }
