@@ -10,32 +10,76 @@ public static class SeedDataExtensions
     public static async ValueTask InitializeSeedAsync(this IServiceProvider serviceProvider)
     {
         var locationsDbContext = serviceProvider.GetRequiredService<AirBnBdbContext>();
-        var environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
-
+       // var environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
+                   
            if (!await locationsDbContext.LocationCategories.AnyAsync())
-               await locationsDbContext.SeedLocationCategoryAsync(environment);
+               await locationsDbContext.SeedLocationCategoryAsync();
         
            if (!await locationsDbContext.Locations.AnyAsync())
-            await locationsDbContext.SeedLocationsAsync();
+                await locationsDbContext.SeedLocationsAsync();
     }
     
+    private static async ValueTask SeedLocationCategoryAsync(this AirBnBdbContext airBnBdbContext)
+    {
+        /*var locationCategories = JsonConvert.DeserializeObject<List<LocationCategory>>(await File.ReadAllTextAsync(
+            Path.Combine(environment.ContentRootPath, "Data", "SeedData", "ListingCategories.json")))!;*/
+        var imagePathDictionary = new Dictionary<string, string>();
+            imagePathDictionary.Add("Castle", "Assets/LocationCotegories/1b6a8b70-a3b6-48b5-88e1-2243d9172c06.jpg");
+            imagePathDictionary.Add("Amazing views", "Assets/LocationCotegories/3b1eb541-46d9-4bef-abc4-c37d77e3c21b.jpg");
+            imagePathDictionary.Add("Amazing pools", "Assets/LocationCotegories/3fb523a0-b622-4368-8142-b5e03df7549b.jpg");
+            imagePathDictionary.Add("Riads", "Assets/LocationCotegories/7ff6e4a1-51b4-4671-bc9a-6f523f196c61.jpg");
+            imagePathDictionary.Add("Arctic", "Assets/LocationCotegories/8b44f770-7156-4c7b-b4d3-d92549c8652f.jpg");
+            imagePathDictionary.Add("Islands", "Assets/LocationCotegories/8e507f16-4943-4be9-b707-59bd38d56309.jpg");
+            imagePathDictionary.Add("Cases particulares", "Assets/LocationCotegories/251c0635-cc91-4ef7-bb13-1084d5229446.jpg");
+            imagePathDictionary.Add("Shepherd's huts", "Assets/LocationCotegories/747b326c-cb8f-41cf-a7f9-809ab646e10c.jpg");
+            imagePathDictionary.Add("Yurts", "Assets/LocationCotegories/4759a0a7-96a8-4dcd-9490-ed785af6df14.jpg");
+            imagePathDictionary.Add("Trulli", "Assets/LocationCotegories/33848f9e-8dd6-4777-b905-ed38342bacb9.jpg");
+            imagePathDictionary.Add("Desert", "Assets/LocationCotegories/a6dd2bae-5fd0-4b28-b123-206783b5de1d.jpg");
+            imagePathDictionary.Add("Dammusi", "Assets/LocationCotegories/c9157d0a-98fe-4516-af81-44022118fbc7.jpg");
+            imagePathDictionary.Add("Earth homes", "Assets/LocationCotegories/d7445031-62c4-46d0-91c3-4f29f9790f7a.jpg");
+            imagePathDictionary.Add("Cucladic homes", "Assets/LocationCotegories/e4b12c1b-409b-4cb6-a674-7c1284449f6e.jpg");
+            imagePathDictionary.Add("Adepted", "Assets/LocationCotegories/e22b0816-f0f3-42a0-a5db-e0f1fa93292b.jpg");
+            /*imagePathDictionary.Add("","Assets/LocationCotegories/5cdb8451-8f75-4c5f-a17d-33ee228e3db8.jpg");
+            imagePathDictionary.Add("","Assets/LocationCotegories/7ff6e4a1-51b4-4671-bc9a-6f523f196c61.jpg");
+            imagePathDictionary.Add("","Assets/LocationCotegories/f0c5ca0f-5aa0-4fe5-b38d-654264bacddf.jpg");
+            imagePathDictionary.Add("","Assets/LocationCotegories/e22b0816-f0f3-42a0-a5db-e0f1fa93292b.jpg");
+            imagePathDictionary.Add("","Assets/LocationCotegories/89faf9ae-bbbc-4bc4-aecd-cc15bf36cbca.jpg");
+            imagePathDictionary.Add("","Assets/LocationCotegories/827c5623-d182-474a-823c-db3894490896.jpg");
+            imagePathDictionary.Add("","Assets/LocationCotegories/9a2ca4df-ee90-4063-b15d-0de7e4ce210a.jpg");
+            imagePathDictionary.Add("","Assets/LocationCotegories/d721318f-4752-417d-b4fa-77da3cbc3269.jpg");
+            imagePathDictionary.Add("","Assets/LocationCotegories/c9157d0a-98fe-4516-af81-44022118fbc7.jpg"); */
+        
+      //  await airBnBdbContext.AddRangeAsync(imagePathDictionary);
+        //await airBnBdbContext.SaveChangesAsync();
+        
+        foreach (var (key, value) in imagePathDictionary)
+        {
+            await airBnBdbContext.LocationCategories.AddAsync(new LocationCategory
+            {
+                Name = key,
+                ImagePath = value 
+            });
+
+            await airBnBdbContext.SaveChangesAsync();
+        }
+    }
     private static async ValueTask SeedLocationsAsync(this AirBnBdbContext airBnBdbContext)
     {
         
         var imageList = new List<string>
         {
-            /*"https://a0.muscache.com/im/pictures/53ed423f-f4c4-4be5-9bf9-e52861167c0f.jpg?im_w=720",
+            "https://a0.muscache.com/im/pictures/53ed423f-f4c4-4be5-9bf9-e52861167c0f.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-832355501498041527/original/551de2c9-6981-4222-b21d-75dd8792bd2d.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-44265625/original/f3a34292-ea0d-4614-9089-3b2ed382e7f5.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/16741847/6cdb4377_original.jpg?im_w=720",
-            "https://a0.muscache.com/im/pictures/miso/Hosting-883697523223642736/original/57d9cca1-3ddd-43a6-ad0b-1178f1518dcb.jpeg?im_w=720",
-            "https://a0.muscache.com/im/pictures/miso/Hosting-798310927368521545/original/da546e7a-df43-4840-9144-5e1a8b85bf26.jpeg?im_w=720",*/
+            "https://a0.muscache.com/im/pictures/miso/Hosting-883697523223642736/original/57d9cca1-3ddd-43a6-ad0b-1178f1518dcb.jpeg?im_w=720"
+            /*"https://a0.muscache.com/im/pictures/miso/Hosting-798310927368521545/original/da546e7a-df43-4840-9144-5e1a8b85bf26.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-853189955208971108/original/bdefcb9d-5e3f-495d-bc04-013125cd99c6.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-1025798788809925759/original/cc9cc97e-ffef-4606-8b5b-1175f0e660ae.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/a1314224-52d7-4e3c-9c85-8fbdb5644ec5.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-876463172459170480/original/60963c66-9a75-4424-bcd7-d5a02080a45d.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/0c3e645b-2c70-426f-bf0c-c45968e8b69f.jpg?im_w=720",
-            /*"https://a0.muscache.com/im/pictures/74fc010b-e809-42ff-a1ee-d58bc4cfd202.jpg?im_w=720",
+            "https://a0.muscache.com/im/pictures/74fc010b-e809-42ff-a1ee-d58bc4cfd202.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-980193538711664916/original/7751128a-f0b7-4f67-95e7-ef3ee3b79ccf.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-603281858277532903/original/92af7b7e-0b55-41f4-b4a7-ffab7ee6125d.jpeg?im_w=720",
             "https://a0.muscache.com/im/pictures/miso/Hosting-45789576/original/8909a57c-c10f-43ae-a40e-6651825650fc.jpeg?im_w=720",
@@ -72,20 +116,21 @@ public static class SeedDataExtensions
             "https://a0.muscache.com/im/pictures/b271226e-9453-4d73-aac0-1622550b08e4.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/30d6cf52-d303-4026-8d8c-5cc8ac03444e.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/f042c16f-dde9-436e-96a0-9c21ab7da2d0.jpg?im_w=720"*/
+            
         };
 
         var count = 0;
         var random = new Random();
-
+        
         foreach (var imageUrl in imageList)
         {
             await airBnBdbContext.Locations.AddAsync(new Location
         {
-            ImageUrl = imageUrl,
+            ImageUrl =  imageUrl,
             Name = "Bujra. India Bujra. India Bujra. India Bujra. India Bujra. India Bujra. IndiaBujra. IndiaBujra. India",
             BuiltYear = random.Next(2010, 2023),
             PricePerNight = random.Next(300, 5000),
-            CategoryId = Guid.Parse("59060863-d9df-44cb-a1ea-93594f9cd649")
+            CategoryId = Guid.NewGuid()
         }); 
             await airBnBdbContext.AddRangeAsync();
             
@@ -94,49 +139,5 @@ public static class SeedDataExtensions
         
     }
 
-    private static async ValueTask SeedLocationCategoryAsync(this AirBnBdbContext airBnBdbContext, IWebHostEnvironment environment)
-    {
-        var locationCategories = JsonConvert.DeserializeObject<List<LocationCategory>>(await File.ReadAllTextAsync(
-            Path.Combine(environment.ContentRootPath, "Data", "SeedData", "ListingCategories.json")))!;
-        
-        /*
-        imagePathDictionary.Add("Castle","Assets/LocationCotegories/1b6a8b70-a3b6-48b5-88e1-2243d9172c06.jpg");
-        imagePathDictionary.Add("Amazing views","Assets/LocationCotegories/3b1eb541-46d9-4bef-abc4-c37d77e3c21b.jpg");
-        imagePathDictionary.Add("Amazing pools","Assets/LocationCotegories/3fb523a0-b622-4368-8142-b5e03df7549b.jpg");
-        imagePathDictionary.Add("Riads","Assets/LocationCotegories/7ff6e4a1-51b4-4671-bc9a-6f523f196c61.jpg");
-        imagePathDictionary.Add("Arctic","Assets/LocationCotegories/8b44f770-7156-4c7b-b4d3-d92549c8652f.jpg");
-        imagePathDictionary.Add("Islands","Assets/LocationCotegories/8e507f16-4943-4be9-b707-59bd38d56309.jpg");
-        imagePathDictionary.Add("Cases particulares","Assets/LocationCotegories/251c0635-cc91-4ef7-bb13-1084d5229446.jpg");
-        imagePathDictionary.Add("Shepherd's huts","Assets/LocationCotegories/747b326c-cb8f-41cf-a7f9-809ab646e10c.jpg");
-        imagePathDictionary.Add("Yurts","Assets/LocationCotegories/4759a0a7-96a8-4dcd-9490-ed785af6df14.jpg");
-        imagePathDictionary.Add("Trulli","Assets/LocationCotegories/33848f9e-8dd6-4777-b905-ed38342bacb9.jpg");
-        imagePathDictionary.Add("Desert","Assets/LocationCotegories/a6dd2bae-5fd0-4b28-b123-206783b5de1d.jpg");
-        imagePathDictionary.Add("Dammusi","Assets/LocationCotegories/c9157d0a-98fe-4516-af81-44022118fbc7.jpg");
-        imagePathDictionary.Add("Earth homes","Assets/LocationCotegories/d7445031-62c4-46d0-91c3-4f29f9790f7a.jpg");
-        imagePathDictionary.Add("Cucladic homes","Assets/LocationCotegories/e4b12c1b-409b-4cb6-a674-7c1284449f6e.jpg");
-        imagePathDictionary.Add("Adepted","Assets/LocationCotegories/e22b0816-f0f3-42a0-a5db-e0f1fa93292b.jpg");
-        /*imagePathDictionary.Add("","Assets/LocationCotegories/5cdb8451-8f75-4c5f-a17d-33ee228e3db8.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/7ff6e4a1-51b4-4671-bc9a-6f523f196c61.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/f0c5ca0f-5aa0-4fe5-b38d-654264bacddf.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/e22b0816-f0f3-42a0-a5db-e0f1fa93292b.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/89faf9ae-bbbc-4bc4-aecd-cc15bf36cbca.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/827c5623-d182-474a-823c-db3894490896.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/9a2ca4df-ee90-4063-b15d-0de7e4ce210a.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/d721318f-4752-417d-b4fa-77da3cbc3269.jpg");
-        imagePathDictionary.Add("","Assets/LocationCotegories/c9157d0a-98fe-4516-af81-44022118fbc7.jpg"); */
-
-        await airBnBdbContext.AddRangeAsync(locationCategories);
-        await airBnBdbContext.SaveChangesAsync();
-        
-        /*foreach (var (key, value) in imagePathDictionary)
-        {
-            await airBnBdbContext.LocationCategories.AddAsync(new LocationCategory
-            {
-                Name = key,
-                ImagePath = value 
-            });
-
-            await airBnBdbContext.SaveChangesAsync();
-        }*/
-    }
+    
 }
