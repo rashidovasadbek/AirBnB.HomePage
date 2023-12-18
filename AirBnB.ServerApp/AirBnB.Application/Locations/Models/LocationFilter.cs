@@ -14,7 +14,7 @@ public class LocationFilter : FilterPagination, IQueryConvertible<Location>
         if (Category is not null)
         {
             querySpecification.IncludeOptions.Add(location => location.Category!);
-            querySpecification.FilteringOptions.Add(location => location.Category!.Name.Equals("Castle"));
+            querySpecification.FilteringOptions.Add(location => location.Category!.Name.Equals(Category));
         }
         querySpecification.PaginationOptions = this;
         
