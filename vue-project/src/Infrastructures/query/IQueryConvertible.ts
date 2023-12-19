@@ -1,3 +1,3 @@
 export interface IQueryConvertible {
-   toQueryParams(): UrlSearchParams;
+   toQueryParams(): URLSearchParams;
 }
