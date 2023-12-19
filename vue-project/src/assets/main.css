@@ -19,13 +19,25 @@
         @apply opacity-60 hover:opacity-100 focus:opacity-100 active:opacity-100 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100;
     }
 
-    .select-item {
-        @apply bg-transparent hover:bg-logoAccent focus:bg-logoSelected group-active:bg-logoSelected group-hover:bg-logoAccent group-focus:bg-logoSelected active:bg-logoSelected;
+    /*.select-item {*/
+    /*    @apply bg-transparent hover:bg-logoAccent focus:bg-logoSelected group-active:bg-logoSelected group-hover:bg-logoAccent group-focus:bg-logoSelected active:bg-logoSelected;*/
+    /*}*/
+
+    /*.select-item {*/
+    /*    @apply bg-transparent hover:bg-logoAccent focus:bg-logoSelected group-active:bg-logoSelected group-hover:bg-logoAccent group-focus:bg-logoSelected active:bg-logoSelected;*/
+    /*}*/
+
+    .select-opacity {
+        @apply hover:opacity-100 focus:opacity-100 group-active:opacity-100 group-hover:opacity-100 group-focus:opacity-100 active:opacity-100 select-transition;
     }
 
-    .select-text {
-        @apply text-textSecondary hover:text-textPrimary focus:text-textPrimary active:text-textPrimary group-hover:text-textPrimary group-focus:text-textPrimary group-active:text-textPrimary;
+    .selected-opacity {
+        @apply opacity-100;
     }
+
+    /*.select-text {*/
+    /*    @apply text-textSecondary hover:text-textPrimary focus:text-textPrimary active:text-textPrimary group-hover:text-textPrimary group-focus:text-textPrimary group-active:text-textPrimary;*/
+    /*}*/
 
     .content-padding {
         @apply px-6 md:px-10 xl:px-20
