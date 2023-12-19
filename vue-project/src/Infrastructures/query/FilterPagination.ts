@@ -1,7 +1,7 @@
 import type {IQueryConvertible} from "@/Infrastructures/query/IQueryConvertible";
 
 export class FilterPagination implements IQueryConvertible{
-    pageSize: number = 10;
+    pageSize: number = 4;
     pageToken: number = 1;
 
     constructor(pageSize: number, pageToken: number) {
