@@ -13,7 +13,7 @@
         </div>
 
         <!-- Locations categories -->
-        <location-categories/>
+        <location-categories @onCategorySelected="onCategorySelected" :selectedCategoryId="selectedCategoryId"/>
 
         <!-- Location next pagination -->
         <div class="md-3">
@@ -51,5 +51,23 @@
 
 </template>
 <script setup lang="ts">
+
 import LocationCategories from "@/modules/locations/companents/LocationCategories.vue";
+import {defineEmits} from "vue";
+
+const props = defineProps({
+  selectedCategoryId: {
+    type: String,
+    required: true
+  }
+});
+
+const emit = defineEmits<{
+  'onCategorySelected': [id: string]
+}>();
+
+const onCategorySelected = (id: string) => {
+  emit('onCategorySelected', id);
+}
+
 </script>
