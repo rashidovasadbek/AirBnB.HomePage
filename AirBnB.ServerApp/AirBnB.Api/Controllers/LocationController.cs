@@ -10,7 +10,7 @@ namespace AirBnB.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class LocationController(ILocationService locationService) : ControllerBase
+public class LocationsController(ILocationService locationService) : ControllerBase
 {
     [HttpGet]
     public async ValueTask<IActionResult> GetLocations(
