@@ -10,7 +10,7 @@ export class LocationFilter extends FilterPagination {
     }
 
     public override toQueryParams(): URLSearchParams {
-        const params =         super.toQueryParams()
+        const params = super.toQueryParams()
         params.append("category", this.category);
 
         return params;
