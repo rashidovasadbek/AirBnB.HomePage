@@ -2,9 +2,9 @@
 
 public class FilterPagination
 {
-    public uint PageSize { get; init;  }
-    
-    public uint PageToken { get; init;  }
+    public uint PageSize { get; init; } = 10;
+
+    public uint PageToken { get; init; } = 1;
 
     public FilterPagination(uint pageSize, uint pageToken)
     {
