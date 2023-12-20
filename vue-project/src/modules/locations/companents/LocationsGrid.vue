@@ -9,21 +9,16 @@
 
 import LocationCard from "@/modules/locations/companents/LocationCard.vue";
 import {AirBnBApiClient} from "@/Infrastructures/AirBnBApiClient/brokers/AirBnBApiClient";
-import {onBeforeMount, ref} from "vue";
+import {onBeforeMount, type PropType, ref} from "vue";
 import {LocationFilter} from "@/modules/locations/models/LocationFilter";
-import {Location} from "@/modules/locations/models/location";
+import {Location} from "@/modules/locations/models/Location";
 
 const airBnbApiClient = new AirBnBApiClient();
 
-const locations = ref<Location[]>([])
-
-onBeforeMount(async () => {
-    const filter = new LocationFilter("Castle", 4, 1)
-    const locationsResponse = await airBnbApiClient.locations.getAsync(filter);
-
-    if(locationsResponse.response)
-      locations.value = locationsResponse.response;
-
-   // console.log('response', locationsResponse)
+const props = defineProps({
+  locations: {
+    type: Array as PropType<Array<Location>>,
+    required: true
+  }
 });
 </script>
