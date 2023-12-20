@@ -1,5 +1,5 @@
 import type ApiClientBase from "@/Infrastructures/ApiClientBase/ApiClientBase";
-import type {LocationCategory} from "@/modules/locations/models/locationCategory";
+import type {LocationCategory} from "@/modules/locations/models/LocationCategory";
 
 
 export class LocationCategoriesEndPointsClients {
@@ -11,7 +11,7 @@ export class LocationCategoriesEndPointsClients {
 
 
     public async getAsync(){
-        return await this.client.getAsync<Array<LocationCategory>>("api/locationcategories",
+        return await this.client.getAsync<Array<LocationCategory>>("api/locationCategories",
         {
             params: {
                 "PageSize": 15,
