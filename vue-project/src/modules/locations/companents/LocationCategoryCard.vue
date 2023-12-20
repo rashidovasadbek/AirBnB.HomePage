@@ -23,7 +23,7 @@
 <script setup lang="ts">
 
 import {defineProps, defineEmits, computed} from "vue";
-import type {LocationCategory} from "../models/locationCategory";
+import type {LocationCategory} from "../models/LocationCategory";
 
 const props = defineProps({
   selectedCategoryId: {
@@ -47,18 +47,5 @@ const onCategorySelected = () => {
 
 const isSelected = computed(() => props.locationCategory.id === props.selectedCategoryId);
 
-// function filter(event: any) {
-//   alert(
-//       onBeforeMount(async () => {
-//         const locationResponse = await airBnbApiClient.locationCategories.getAsync();
-//         locationCategories.value = locationResponse.response!;
-//
-//         console.log("test", locationCategories.value)
-//       })
-//   )
-//   // `event` is the native DOM event
-//   if (event) {
-//
-//   }
-// }
+
 </script>
