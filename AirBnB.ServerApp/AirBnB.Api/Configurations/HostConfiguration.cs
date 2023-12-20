@@ -10,6 +10,9 @@ public static partial class HostConfiguration
         return new();
     }
 
+    //https://localhost:7134/api/locations?Category=Arctic&PageSize=4&PageToken=1 // swagger
+    //https://localhost:7134/api/location?pageSize=4&pageToken=1&category=Arctic
+
     public static async ValueTask<WebApplication> ConfigureAsync(this WebApplication app)
     {
         await app.SeedDataAsync();
