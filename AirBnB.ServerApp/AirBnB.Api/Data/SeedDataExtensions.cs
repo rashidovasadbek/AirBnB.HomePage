@@ -136,27 +136,51 @@ public static class SeedDataExtensions
             "d00ceca3-b75e-480d-825d-8b51103b65bd",
             "eca26940-8242-4c01-8c03-2843d5c20cb1"
         };
-        
-        var count = 0;
+       
         var random = new Random();
+
+        var locations = categoryIds.SelectMany(categoryId =>
+        {
+            return Enumerable.Range(0, 5).Select(_ =>
+            {
+                var categoryIdValue = Guid.Parse(categoryId);
+                    
+                return new Location
+                {
+                    Name = "Bujra. India Bujra. India Bujra. India Bujra. India Bujra. India Bujra. IndiaBujra. IndiaBujra. Ind",
+                    CategoryId = categoryIdValue,
+                    ImageUrl = imageList[random.Next(0, imageList.Count)],
+                    BuiltYear = random.Next(2010, 2023),
+                    PricePerNight = random.Next(300, 5000),
+                };
+            }).ToList();
+        });
+        
+        await airBnBdbContext.Locations.AddRangeAsync(locations);
+        await airBnBdbContext.SaveChangesAsync();
     
-        foreach (var imageUrl in imageList)
+        /*for (var i = 0; i < imageList.Count; i++)
         {
-            await airBnBdbContext.Locations.AddAsync(new Location
-        {
-            ImageUrl =  imageUrl,
-            Name = "Bujra. India Bujra. India Bujra. India Bujra. India Bujra. India Bujra. IndiaBujra. IndiaBujra. India",
-            BuiltYear = random.Next(2010, 2023),
-            PricePerNight = random.Next(300, 5000),
-            CategoryId = Guid.Parse("00642352-5237-40bc-8132-e711adee4b57")
-           
-        }); 
-            await airBnBdbContext.AddRangeAsync();
+            if (count == 5)
+                count = 0;
             
-            await airBnBdbContext.SaveChangesAsync();
+            for (int j = 0; j < 5; j++)
+            {
+                await airBnBdbContext.Locations.AddAsync(new Location
+                {
+                    ImageUrl = imageList[index],
+                    Name =
+                        "Bujra. India Bujra. India Bujra. India Bujra. India Bujra. India Bujra. IndiaBujra. IndiaBujra. India",
+                    BuiltYear = random.Next(2010, 2023),
+                    PricePerNight = random.Next(300, 5000),
+                    CategoryId = Guid.Parse(categoryIds[i])
+                });
+                index++;
+                
+                count += 1;
+            }
         }
+            */
         
     }
-
-    
 }
