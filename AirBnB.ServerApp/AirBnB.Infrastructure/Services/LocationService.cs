@@ -38,4 +38,5 @@ public class LocationService(ILocationRepository locationRepository) : ILocation
     {
         throw new NotImplementedException();
     }
+    
 }
