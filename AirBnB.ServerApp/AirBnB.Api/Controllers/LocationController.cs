@@ -22,7 +22,7 @@ public class LocationsController(ILocationService locationService) : ControllerB
         var locations = result.Select(location => new LocationDto
         {
             Id = location.Id,
-            ImageUrl = location.ImageUrl.ToUrl(apiSettings.Value.ApiUrl),
+            ImageUrl = location.ImageUrl,
             Name = location.Name,
             BuiltYear = location.BuiltYear,
             PricePerNight = location.PricePerNight,
