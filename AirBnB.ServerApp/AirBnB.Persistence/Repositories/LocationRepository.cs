@@ -27,8 +27,9 @@ public class LocationRepository(AirBnBdbContext airBnBdbContext, ICacheBroker ca
     {
         var test = await DbContext.Locations.Include(x => x.Category).Where(x => x.Category!.Name.Equals("Castle"))
             .ToListAsync(cancellationToken: cancellationToken);
-        
-        return await base.GetAsync(querySpecification, asNoTracking, cancellationToken);
+
+        var locations = await base.GetAsync(querySpecification, asNoTracking, cancellationToken);
+        return locations;
     }
     
     public ValueTask<IList<Location>> GetByIdsAsync(IEnumerable<Guid> ids, 
