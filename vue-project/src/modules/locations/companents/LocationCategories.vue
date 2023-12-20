@@ -10,7 +10,7 @@
 import {AirBnBApiClient} from "@/Infrastructures/AirBnBApiClient/brokers/AirBnBApiClient";
 import {defineEmits, defineProps, onBeforeMount, ref} from "vue";
 import LocationCategoryCard from "@/modules/locations/companents/LocationCategoryCard.vue";
-import {LocationCategory} from "@/modules/locations/models/locationCategory";
+import {LocationCategory} from "@/modules/locations/models/LocationCategory";
 
 const airBnbApiClient = new AirBnBApiClient();
 const locationCategories = ref<LocationCategory[]>([]);

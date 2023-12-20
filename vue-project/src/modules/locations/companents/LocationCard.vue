@@ -4,7 +4,7 @@
 
     <!--Location header-->
     <div class="w-full h-auto aspect-square rounded-xl overflow-hidden relative">
-      <img class="h-full object-cover"
+      <img class="h-full object-cover w-full"
            :src="location.imageUrl"
            alt="">
       <button class="absolute top-4 right-4">
@@ -55,7 +55,7 @@
 
 <script lang="ts" setup>
 
-import type {Location} from "@/modules/locations/models/location";
+import type {Location} from "@/modules/locations/models/Location";
 
 const props = defineProps({
   location: {
