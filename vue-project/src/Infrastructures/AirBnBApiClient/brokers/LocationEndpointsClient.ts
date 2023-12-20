@@ -12,6 +12,6 @@ export class LocationEndpointsClient {
     public async getAsync(filter: LocationFilter){
         const queryParams = filter.toQueryParams();
 
-        return await this.client.getAsync<Array<Location>>(`api/location?${queryParams}`);
+        return await this.client.getAsync<Array<Location>>(`api/locations?${queryParams}`);
     }
 }
