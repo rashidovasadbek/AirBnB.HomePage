@@ -20,8 +20,7 @@ public class LocationCategoriesController(ILocationCategoryService  locationCate
         [FromServices] IOptions<ApiSettings> apiSettings,
         CancellationToken cancellationToken = default)
     {
-        var querySpecification =
-            new QuerySpecification<LocationCategory>(filterPagination.PageSize, filterPagination.PageToken);
+        var querySpecification = new QuerySpecification<LocationCategory>(filterPagination.PageSize, filterPagination.PageToken);
         var result = await locationCategoryService.GetAsync(querySpecification, cancellationToken: cancellationToken);
         var locationCategories = result.Select(locationCategory => new LocationCategoryDto
         {

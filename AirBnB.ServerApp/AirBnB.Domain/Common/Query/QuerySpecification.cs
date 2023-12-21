@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using System.Text.Json.Serialization.Metadata;
 using AirBnB.Domain.Common.Caching;
 using AirBnB.Domain.Common.Entities;
 using AirBnB.Domain.Comparers;
@@ -25,8 +24,7 @@ public class QuerySpecification<TEntity>(uint pageSize, uint pageToken, int? has
         
         var expressionEqualityComparer = ExpressionEqualityComparer.Instance;
         var hashCode = new HashCode();
-
-        var test = expressionEqualityComparer.GetHashCode(FilteringOptions[0]);
+        
         
         foreach (var filter in FilteringOptions.Order(new PredicateExpressionComparer<TEntity>()))
             hashCode.Add(expressionEqualityComparer.GetHashCode(filter));
