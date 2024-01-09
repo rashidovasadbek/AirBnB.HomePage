@@ -10,7 +10,7 @@ public static class SeedDataExtensions
     public static async ValueTask InitializeSeedAsync(this IServiceProvider serviceProvider)
     {
         var locationsDbContext = serviceProvider.GetRequiredService<AirBnBdbContext>();
-       // var environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
+        var environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
                    
            if (!await locationsDbContext.LocationCategories.AnyAsync())
                await locationsDbContext.SeedLocationCategoryAsync();
